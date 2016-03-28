@@ -1,6 +1,7 @@
 #!/bin/bash
 if [ ${UID} == 0 ]; then
-    echo "1. 基础软件包"
+    echo "0. 基础软件包"
+    echo "1. 扩展软件包"
     echo "2. Nodejs"
     echo "3. Python(pip)"
     echo "4. Golang"
@@ -11,7 +12,7 @@ if [ ${UID} == 0 ]; then
     echo "第一次执行请安装基础软件包，然后选择其他操作。"
     read -p "选择你要安装的开发环境（输入前面的数字）：" i
     case "$i" in
-        1)
+        0)
         echo "========================================================================"
         echo "刷新软件列表"
         echo "========================================================================"
@@ -20,6 +21,7 @@ if [ ${UID} == 0 ]; then
         echo "2. ca-certificates"
         echo "3. wget"
         echo "4. pwgen"
+        echo "5. build-essential"
         read -p "选择操作（推荐直接回车安装全部）：" i
         case "$i" in
             1)
@@ -50,15 +52,50 @@ if [ ${UID} == 0 ]; then
             echo "pwgen安装完成！！"
             echo "========================================================================"
             ;;
+            5)
+            DEBIAN_FRONTEND=noninteractive apt-get -yq install \
+            build-essential
+            echo "========================================================================"
+            echo "build-essential安装完成！！"
+            echo "========================================================================"
+            ;;
             *)
             DEBIAN_FRONTEND=noninteractive apt-get -yq install \
             curl \
             ca-certificates \
             wget \
-            pwgen
+            pwgen \
+            build-essential
             echo "========================================================================"
             echo "基础软件包已全部安装完成！！"
             echo "========================================================================"
+        esac
+        ;;
+        1)
+        echo "1. virtualenv + codeintel"
+        read -p "选择操作：" i
+        case "$i" in
+            1)
+            pip install -U virtualenv
+            virtualenv --python=python2 $HOME/.c9/python2
+            source $HOME/.c9/python2/bin/activate
+            $workspace="/workspace"
+            virtualenv --python=python2 $workspace/.c9/python2
+            source $workspace/.c9/python2/bin/activate
+            apt-get install -y python-dev
+            mkdir /tmp/codeintel
+            pip install --download /tmp/codeintel codeintel==0.9.3
+            cd /tmp/codeintel && tar xf CodeIntel-0.9.3.tar.gz
+            mv CodeIntel-0.9.3/SilverCity CodeIntel-0.9.3/silvercity
+            tar czf CodeIntel-0.9.3.tar.gz CodeIntel-0.9.3
+            pip install -U --no-index --find-links=/tmp/codeintel codeintel
+            # rm -rf /tmp/codeintel
+            echo "========================================================================"
+            echo "virtualenv + codeintel安装完成！！(CTRL+R重启Cloud9)"
+            echo "========================================================================"
+            ;;
+            *)
+            echo "请选择你要安装的扩展软件"
         esac
         ;;
         2)
