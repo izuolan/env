@@ -2,7 +2,7 @@
 if [ ${UID} == 0 ]; then
     echo "1. 基础软件包"
     echo "2. Nodejs"
-    echo "3. Python"
+    echo "3. Python(pip)"
     echo "4. Golang"
     echo "5. Java"
     echo "6. PHP+Apache"
@@ -71,9 +71,12 @@ if [ ${UID} == 0 ]; then
         ;;
 	    3)
     	apt-get install -y python
+    	wget https://bootstrap.pypa.io/get-pip.py
+    	python get-pip.py
+    	rm get-pip.py
     	python --version
     	echo "========================================================================"
-        echo "Python安装完成！！"
+        echo "Python(pip)安装完成！！"
         echo "========================================================================"
     	;;
     	4)
