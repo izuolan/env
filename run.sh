@@ -174,6 +174,7 @@ if [ ${UID} == 0 ]; then
     	TOMCAT_MAJOR_VERSION="8"
         TOMCAT_MINOR_VERSION="8.0.11"
         CATALINA_HOME="/tomcat"
+        echo "下载中，稍等。"
     	wget -q https://archive.apache.org/dist/tomcat/tomcat-${TOMCAT_MAJOR_VERSION}/v${TOMCAT_MINOR_VERSION}/bin/apache-tomcat-${TOMCAT_MINOR_VERSION}.tar.gz && \
         wget -qO- https://archive.apache.org/dist/tomcat/tomcat-${TOMCAT_MAJOR_VERSION}/v${TOMCAT_MINOR_VERSION}/bin/apache-tomcat-${TOMCAT_MINOR_VERSION}.tar.gz.md5 | md5sum -c - && \
         tar zxf apache-tomcat-*.tar.gz && \
