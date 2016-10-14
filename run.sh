@@ -38,7 +38,7 @@ if [ ${UID} == 0 ]; then
             echo "ca-certificates安装完成！！"
             echo "========================================================================"
             ;;
-            1)
+            3)
             DEBIAN_FRONTEND=noninteractive apt-get -yq install \
             wget
             echo "========================================================================"
@@ -106,7 +106,7 @@ if [ ${UID} == 0 ]; then
         echo "Nodejs安装完成！！"
         echo "========================================================================"
         ;;
-	    3)
+	3)
     	apt-get install -y python
     	wget https://bootstrap.pypa.io/get-pip.py
     	python get-pip.py
